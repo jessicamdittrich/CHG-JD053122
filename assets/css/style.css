@@ -66,7 +66,7 @@ header h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
     border: 1px solid black;
-    width: 150px;
+    min-width: 150px;
     height: 40px;
     padding: 10px;
     border-radius: 7px;
@@ -97,6 +97,7 @@ header h1 {
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: 2px 2px black;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #city-weather div h3, #daily-forecast div h3 {
@@ -125,6 +126,7 @@ header h1 {
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: 2px 2px black;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #daily-forecast div section {
