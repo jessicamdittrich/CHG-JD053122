@@ -153,27 +153,13 @@ searchButton.addEventListener('click', (e) => {
 
                     // SETTING LOCAL STORAGE INTO BUTTONS
                     localStorage.setItem('last-city', searchInput);
-                    //var cityLog = JSON.parse(localStorage.getItem('last-city'));
                     let inputCity = localStorage.getItem('last-city');
-                    console.log(searchInput);
-                    console.log(inputCity);
 
-                    prevButtons[0].innerHTML = inputCity;
-                    console.log(prevButtons);
-
-                    /*var cities = {
-                        cityname: inputCity,
-                    };
-
-                    cityLog.push(cities);
-
-                    prevButtons.innerHTML = cities;
-                    localStorage.setItem('last-city', JSON.stringify(cityLog));
-
-                    console.log(cities);
-
-                    inputLocalStorage();*/
-
+                    // LOOPING THROUGH BUTTONS TO INPUT PREVIOUS SEARCH
+                    for (let i = 0; i < prevButtons.length; i++) {
+                        prevButtons[i].innerHTML = inputCity;
+                    }
+                    
                 });
         });
 });
