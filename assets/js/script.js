@@ -1,30 +1,46 @@
 // SEARCH VARIABLES
-//let searchInput = 'New York';
+let inputSearches = document.getElementById('search-input');
 let searchButton = document.querySelector('#search-button');
-let citiesSearch = '';
 
 // DATE VARIABLES
 let date = new Date().toDateString();
-var todaysDateInput = document.getElementById('todays-date');
-var fiveDayDateInput = document.getElementsByClassName('five-day-dates')
+let todaysDateInput = document.getElementById('todays-date');
+let fiveDayDateInput = document.getElementsByClassName('five-day-dates')
+
+// LOCAL STORAGE BUTTONS
+let prevButtons = document.getElementsByClassName('prev-city');
 
 // MY PERSONAL API KEY (OPENWEATHERMAP)
 let weatherApiKey = "7547fb1c52fcd552488c6c46145ec65a";
-
-// CURRENT WEATHER AND FIVE DAY WEATHER API VARIABLES
-//let weatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${weatherApiKey}`;
-//let weatherUrlFiveDay = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitute}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${weatherApiKey}`; only "daily"
 
 /**********************************************************************************************************************/
 
 // TODAY'S DATE
 todaysDateInput.textContent = date;
 
+// AUTOCOMPLETE SEARCH BAR (JQUERY)
+$(function () {
+    var citiesSearch = [
+        'Calgary, Canada',
+        'Boston, United States',
+        'London, United Kingdom',
+        'Munich, Germany',
+        'New York, United States',
+        'Paris, France',
+        'Rome, Italy',
+        'Seattle, United States',
+        'Toronto, Canada',
+        'Vancouver, Canada',
+    ];
+    $('#search-input').autocomplete({
+        source: citiesSearch,
+    });
+});
+
 // SEARCH INPUT -> TO BE PUT INTO geoUrl
 searchButton.addEventListener('click', (e) => {
     let searchInput = document.getElementById('search-input').value;
     e.preventDefault();
-    console.log(searchInput);
 
     // GEO LOCATION API VARIABLE
     let geoApiUrl = `https://api.geoapify.com/v1/geocode/search?city=${searchInput}&apiKey=ff9cc9a808974488a9620e7d4a7dd4d2`;
@@ -46,16 +62,6 @@ searchButton.addEventListener('click', (e) => {
             let cityNameEl = document.getElementById('todays-city');
             cityNameEl.textContent = cityName;
 
-            // AUTOCOMPLETE SEARCH BAR (JQUERY) - NEED TO DO STILL**************************************************************
-            $(function () {
-                let citiesSearch = [
-                    searchInput,
-                ];
-                $('#search-input').autocomplete({
-                    source: citiesSearch,
-                });
-            });
-
             // CURRENT WEATHER AND FIVE DAY WEATHER API VARIABLES
             let weatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${weatherApiKey}`;
 
@@ -66,21 +72,18 @@ searchButton.addEventListener('click', (e) => {
                 })
                 .then(function (data) {
 
-                    // 5 DAY FORECAST DATES - NOT WORKING***********************************************************************************
+                    // 5 DAY FORECAST DATES
                     for (let i = 0; i < fiveDayDateInput.length; i++) {
                         fiveDayDateInput[i].textContent = moment.unix(data.daily[i].dt).format('dddd');
-                        //console.log(fiveDayDateInput[0]);
-                        //console.log(date++);
                     }
 
-                    console.log(data);
                     /* *****CURRENT WEATHER***** */
                     // INPUT WEATHER ICON
                     let currIcon = data.current.weather[0].icon;
                     let currIconEl = document.getElementById('todays-icon');
                     let iconImg = document.createElement('img');
                     iconImg.src = `https://openweathermap.org/img/wn/${currIcon}@4x.png`;
-                    iconImg.setAttribute('style', 'max-width:30px;');
+                    iconImg.setAttribute('style', 'max-width:40px;');
                     currIconEl.innerHTML = '';
                     currIconEl.appendChild(iconImg);
                     // INPUT TEMPERATURE
@@ -100,6 +103,20 @@ searchButton.addEventListener('click', (e) => {
                     let currUviEl = document.getElementById('todays-uvi');
                     currUviEl.textContent = currUvi;
 
+                    // UVI STYLING
+                    if (currUvi < 2.00) {
+                        currUviEl.classList.remove('uvi-caution', 'uvi-danger');
+                        currUviEl.classList.add('uvi-safe');
+                    }
+                    else if (currUvi >= 2.01 && currUvi <= 6.00) {
+                        currUviEl.classList.remove('uvi-safe', 'uvi-danger');
+                        currUviEl.classList.add('uvi-caution');
+                    } 
+                    else if (currUvi > 6.01) {
+                        currUviEl.classList.remove('uvi-caution', 'uvi-safe');
+                        currUviEl.classList.add('uvi-danger');
+                    };
+
                     /* *****5 DAY FORECAST***** */
                     // INPUT ICONS
                     let dailyIconEl = document.querySelectorAll('.five-day-icon');
@@ -107,13 +124,12 @@ searchButton.addEventListener('click', (e) => {
                         let dailyIcon = data.daily[i].weather[0].icon;
                         let dailyIconImg = document.createElement('img');
                         dailyIconImg.src = `https://openweathermap.org/img/wn/${dailyIcon}@4x.png`;
-                        dailyIconImg.setAttribute('style', 'max-width:30px;');
+                        dailyIconImg.setAttribute('style', 'max-width:40px;');
                         dailyIconEl[i].innerHTML = '';
                         dailyIconEl[i].appendChild(dailyIconImg);
                     }
                     // INPUT TEMPERATURES
                     let dailyTempEl = document.querySelectorAll('.five-day-temp');
-                    console.log(data.daily);
                     for (var i = 0; i < dailyTempEl.length; i++) {
                         let dailyTemp = data.daily[i].temp.day;
                         dailyTempEl[i].textContent = dailyTemp;
@@ -130,6 +146,24 @@ searchButton.addEventListener('click', (e) => {
                         let dailyHumid = data.daily[i].humidity;
                         dailyHumidEl[i].textContent = dailyHumid;
                     }
+
+                    // SETTING LOCAL STORAGE
+                    localStorage.setItem('last-city', searchInput);
+                    var cityLog = JSON.parse(localStorage.getItem('last-city')) || [];
+                    let inputCity = localStorage.getItem('last-city');
+
+                    var cities = {
+                        cityname: inputCity,
+                    };
+
+                    cityLog.push(cities);
+
+                    prevButtons.innerHTML = cities;
+                    localStorage.setItem('last-city', JSON.stringify(cityLog));
+
+                    console.log(cities);
+
+
                 });
 
         });

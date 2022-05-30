@@ -4,6 +4,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'BIZ UDPGothic', sans-serif;
+    background-color: #2c2f33;
 }
 
 ::-webkit-scrollbar {
@@ -25,9 +26,12 @@ header {
 header h1 {
     margin: 15px auto;
     font-family: 'Shrikhand', cursive;
-    font-size: 50px;
+    font-size: 55px;
     letter-spacing: 5px;
     text-transform: uppercase;
+    color: #5b6dae;
+    -webkit-text-stroke: 0.1px black;
+    text-shadow: 5px 5px black;
 }
 
 /* *****SEARCH BAR SECTION***** */
@@ -37,10 +41,10 @@ header h1 {
     height: 15%;
     width: 100%;
     top: 10%;
-    padding: 0;
+    padding: 0 0 12px 0;
     text-align: center;
     padding-top: 25px;
-    border-bottom: 2px dotted black;
+    border-bottom: 3px dotted #5b6dae;
 }
 
 #search-bar #search-cities, #search-bar #prev-cities {
@@ -57,7 +61,7 @@ header h1 {
     margin-right: 25px;
     border: 1px solid black;
     border-radius: 7px;
-    box-shadow: 2px 2px black;
+    box-shadow: 5px 5px #5b6dae;
 }
 
 #search-bar button {
@@ -70,7 +74,7 @@ header h1 {
     height: 40px;
     padding: 10px;
     border-radius: 7px;
-    box-shadow: 2px 2px black;
+    box-shadow: 5px 5px #5b6dae;
 }
 
 #search-bar button:hover {
@@ -85,7 +89,7 @@ header h1 {
 
 #city-weather {
     position: fixed;
-    width: 50%;
+    width: 30%;
     height: 80%;
     top: 30%;
     left: 0;
@@ -96,25 +100,65 @@ header h1 {
     padding: 25px;
     border: 1px solid black;
     border-radius: 7px;
-    box-shadow: 2px 2px black;
-    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 5px 5px #5b6dae;
+    background-color: rgba(153, 170, 181, 1);
 }
 
 #city-weather div h3, #daily-forecast div h3 {
     display: inline;
+    /*font-family: 'Shrikhand', cursive;*/
+    font-size: 35px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 5px;
+    color: black;
+    -webkit-text-stroke: 1px black;
+    text-shadow: 3px 3px #5b6dae;
 }
 
 #city-weather div p {
-    margin-top: 50px;
+    margin: 20px 0px;
+    padding: 15px 0px;
+    font-size: 18px;
+}
+
+#city-weather div .uvi-danger {
+    border: 2px solid white;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #cc0000;
+}
+
+#city-weather div .uvi-caution {
+    border: 2px solid black;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #ffed66;
+}
+
+#city-weather div .uvi-safe {
+    border: 2px solid white;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #008c4f;
 }
 
 /* *****5 DAY FORECAST***** */
 
 #daily-forecast {
     position: fixed;
-    width: 50%;
+    width: 70%;
     height: 80%;
     top: 30%;
     right: 0;
@@ -125,18 +169,21 @@ header h1 {
     padding: 25px;
     border: 1px solid black;
     border-radius: 7px;
-    box-shadow: 2px 2px black;
-    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 5px 5px #5b6dae;
+    background-color: rgba(153, 170, 181, 1);
+}
+
+#daily-forecast div h3 {
+    padding-bottom: 20px;
 }
 
 #daily-forecast div section {
     margin: 20px 0px;
-    padding: 15px 0px;
+    padding: 5px 0px;
     border-top: 2px dotted black;
-    border-bottom: 2px dotted black;
 }
 
 #daily-forecast div section p {
     margin: 0;
-    font-size: 14px;
+    font-size: 18px;
 }
