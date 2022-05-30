@@ -21,16 +21,14 @@ todaysDateInput.textContent = date;
 // AUTOCOMPLETE SEARCH BAR (JQUERY)
 $(function () {
     var citiesSearch = [
-        'Calgary, Canada',
-        'Boston, United States',
-        'London, United Kingdom',
-        'Munich, Germany',
-        'New York, United States',
-        'Paris, France',
-        'Rome, Italy',
-        'Seattle, United States',
-        'Toronto, Canada',
-        'Vancouver, Canada',
+        'Abbotsford',
+        'Boston',
+        'Calgary',
+        'Edmonoton',
+        'New York',
+        'Salt Lake City',
+        'Toronto',
+        'Vancouver',
     ];
     $('#search-input').autocomplete({
         source: citiesSearch,
@@ -71,6 +69,12 @@ searchButton.addEventListener('click', (e) => {
                     return response.json();
                 })
                 .then(function (data) {
+
+                    // MAKE WEATHER DIVS VIEWABLE
+                    var currCityWeather = document.getElementById('city-weather');
+                    var dailyCityWeather = document.getElementById('daily-forecast');
+                    currCityWeather.setAttribute('style', 'opacity:1;');
+                    dailyCityWeather.setAttribute('style', 'opacity:1;');
 
                     // 5 DAY FORECAST DATES
                     for (let i = 0; i < fiveDayDateInput.length; i++) {
@@ -147,12 +151,17 @@ searchButton.addEventListener('click', (e) => {
                         dailyHumidEl[i].textContent = dailyHumid;
                     }
 
-                    // SETTING LOCAL STORAGE
+                    // SETTING LOCAL STORAGE INTO BUTTONS
                     localStorage.setItem('last-city', searchInput);
-                    var cityLog = JSON.parse(localStorage.getItem('last-city')) || [];
+                    //var cityLog = JSON.parse(localStorage.getItem('last-city'));
                     let inputCity = localStorage.getItem('last-city');
+                    console.log(searchInput);
+                    console.log(inputCity);
 
-                    var cities = {
+                    prevButtons[0].innerHTML = inputCity;
+                    console.log(prevButtons);
+
+                    /*var cities = {
                         cityname: inputCity,
                     };
 
@@ -163,9 +172,8 @@ searchButton.addEventListener('click', (e) => {
 
                     console.log(cities);
 
+                    inputLocalStorage();*/
 
                 });
-
         });
-
 });

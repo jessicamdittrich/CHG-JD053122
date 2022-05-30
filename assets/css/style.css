@@ -93,6 +93,7 @@ header h1 {
     height: 80%;
     top: 30%;
     left: 0;
+    opacity: 0;
 }
 
 #city-weather div {
@@ -101,7 +102,7 @@ header h1 {
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: 5px 5px #5b6dae;
-    background-color: rgba(153, 170, 181, 1);
+    background-color: rgba(255, 255, 255, .8);
 }
 
 #city-weather div h3, #daily-forecast div h3 {
@@ -162,6 +163,7 @@ header h1 {
     height: 80%;
     top: 30%;
     right: 0;
+    opacity: 0;
 }
 
 #daily-forecast div {
@@ -170,7 +172,7 @@ header h1 {
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: 5px 5px #5b6dae;
-    background-color: rgba(153, 170, 181, 1);
+    background-color: rgba(255, 255, 255, .8);
 }
 
 #daily-forecast div h3 {
