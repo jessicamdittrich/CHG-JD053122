@@ -14,4 +14,3 @@ Following as much troubleshooting possible, I was unable to fully complete this 
 
 ## Final Product
 [Click here to view](https://jessicamdittrich.github.io/CHG-JD053122)
-Side note: the first load is a little long, please wait for it.
