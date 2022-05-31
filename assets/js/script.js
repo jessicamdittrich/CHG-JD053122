@@ -152,12 +152,13 @@ searchButton.addEventListener('click', (e) => {
                     }
 
                     // SETTING LOCAL STORAGE INTO BUTTONS
-                    localStorage.setItem('last-city', searchInput);
-                    let inputCity = localStorage.getItem('last-city');
+                    let arrayValue = JSON.parse(localStorage.getItem('last-city')) || [];
 
-                    // LOOPING THROUGH BUTTONS TO INPUT PREVIOUS SEARCH
-                    for (let i = 0; i < prevButtons.length; i++) {
-                        prevButtons[i].innerHTML = inputCity;
+                    arrayValue.push(searchInput);
+                    localStorage.setItem('last-city', JSON.stringify(arrayValue));
+
+                    for (let i = 0; i < arrayValue.length; i++) {
+                        prevButtons[i].textContent = arrayValue[i];
                     }
                     
                 });
